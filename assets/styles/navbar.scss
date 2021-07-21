@@ -1,0 +1,26 @@
+.bg-main {
+  background-color: $background-color;
+}
+
+.container-fluid-nav {
+  border: solid 1px $third-color;
+}
+.color-main {
+  color: #e3e3e3;
+}
+
+.color-gold {
+  color : $third-color!important;
+}
+
+.navbar-nav {
+  .nav-link {
+    color: #e3e3e3!important;
+    text-decoration: none!important;
+    &hover{
+      text-decoration: none!important;
+      color: $third-color!important;
+    };
+  }
+}
+

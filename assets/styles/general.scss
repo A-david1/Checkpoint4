@@ -1,0 +1,38 @@
+body {
+  background-color: $background-color;
+  color: #e3e3e3;
+
+  .font-regular, font-bold {
+    font-family: 'Poppins', sans-serif;
+
+    &.font-regular {
+      font-weight: 400 !important;
+    }
+
+    &.font-bold {
+      font-weight: 600 !important;
+    }
+  }
+  h1, h2 {
+    color: $third-color;
+  }
+  .btn-brown {
+    background-color: $fourth-color;
+    border-radius: 25px;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 20px 16px 20px 16px;
+    margin: auto;
+    text-decoration: none;
+    :hover {
+      background-color: $third-color;
+    }
+    :active {
+      position: relative;
+      top: 1px;
+    }
+  }
+}

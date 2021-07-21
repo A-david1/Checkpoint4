@@ -1,9 +1,35 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Accueil - Mes Livres{% endblock %}
 
 {% block body %}
     <div class="container">
-        <a href="{{ path('test') }}">Test Api</a>
+        <h1 class=" mt-5 pt-5 text-center font-regular main-title">Le Bateau Livre</h1>
+
+        <div class="font-regular mt-5 pt-5">
+            <h2 class="font-regular">Concept</h2>
+            <p class="font-regular">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab alias cum cumque debitis delectus doloremque
+                est illum laudantium, modi molestiae nam pariatur praesentium quas quidem repudiandae similique, vitae!
+                Officia, omnis! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab alias cum cumque debitis delectus doloremque
+                est illum laudantium, modi molestiae nam pariatur praesentium quas quidem repudiandae similique, vitae!
+                Officia, omnis!</p>
+        </div>
+
+        <div class="font-regular mt-4 pt-4">
+            <h2 class="font-regular">Recherche une oeuvre</h2>
+            <p class="font-regular">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab alias cum cumque debitis delectus doloremque
+                est illum laudantium, modi molestiae nam pariatur praesentium quas quidem repudiandae similique, vitae!
+                Officia, omnis!</p>
+            <a class="btn-brown font-regular px-2 mx-auto">Rechercher</a>
+        </div>
+
+        <div class="mt-4 pt-4">
+            <h2 class="font-regular">Consulter les listes</h2>
+            <p class="font-regular">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab alias cum cumque debitis delectus doloremque
+                est illum laudantium, modi molestiae nam pariatur praesentium quas quidem repudiandae similique, vitae!
+                Officia, omnis!</p>
+            <a class="btn-brown font-regular px-2 mx-auto">Consulter les listes</a>
+        </div>
     </div>
+
 {% endblock %}
