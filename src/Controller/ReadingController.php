@@ -62,7 +62,25 @@ class ReadingController extends AbstractController
         }
         return  $this->render('reading/edit.html.twig', [
             'form' => $form->createView(),
-            'book' => $book
+            'book' => $book,
+            'readingStatus' => $readingStatus
         ]);
+    }
+
+
+    /**
+     * @Route("/reading/delete/{id}", name="delete_reading", methods={"POST"})
+     * @IsGranted("ROLE_USER")
+     */
+    public function deleteReadingStatus(
+        Request $request,
+        ReadingStatus $readingStatus,
+        EntityManagerInterface $entityManager
+    ): Response {
+        if ($this->isCsrfTokenValid('delete' . $readingStatus->getId(), $request->request->get('_token'))) {
+            $entityManager->remove($readingStatus);
+            $entityManager->flush();
+        }
+        return $this->redirectToRoute('reading');
     }
 }

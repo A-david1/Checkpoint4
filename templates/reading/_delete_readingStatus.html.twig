@@ -1,0 +1,5 @@
+<form class="pt-5 d-flex justify-content-start" method="post" action="{{ path('delete_reading', {'id': readingStatus.id}) }}"
+      onsubmit="return confirm('Voulez-vous vraiment supprimer cette lecture ?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ readingStatus.id) }}">
+    <button class="btn-brown"><i class="far fa-trash-alt pr-2"></i>Supprimer</button>
+</form>
