@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editer une lecture - Bateau Livre{% endblock %}
+
+{% block body %}
+
+        <div class="mt-3  pt-3 container card-book" style="width: 22rem;">
+            <div class="m-3 d-flex flex-column">
+                <div class="d-flex flex-nowrap justify-content-between">
+                    <h5 class="font-regular">{{ book.title }}</h5>
+                </div>
+                <h6 class="font-regular">{{ book.author }}</h6>
+                <div class="d- flex-row flex-wrap">
+                    {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                    <span class="d-flex justify-content-center">
+                    <button class="mt-4 btn-brown">Valider</button>
+                        </span>
+                    {{ form_end(form) }}
+                    <span>
+                        <i class="far fa-trash-alt"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+{% endblock %}

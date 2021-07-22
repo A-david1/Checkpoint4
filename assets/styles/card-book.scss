@@ -1,6 +1,18 @@
 .card-book {
   border: 1px $third-color solid;
+  .color-fourth {
+    color : $fourth-color;
+  }
   .h5 {
     color: $third-color;
+  }
+}
+.container {
+  .link-card {
+    text-decoration: none;
+    :hover {
+      text-decoration: none;
+      color: white;
+    }
   }
 }
