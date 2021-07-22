@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\ReadingList;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Security\Authenticator;
@@ -57,9 +58,12 @@ class SecurityController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
-            $user->setRoles("['ROLE_USER']");
+            $user->setRoles(['ROLE_USER']);
+            $readingList = new ReadingList();
+            $readingList->setUser($user);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
+            $entityManager->persist($readingList);
             $entityManager->flush();
             // do anything else you need here, like send an email
 
