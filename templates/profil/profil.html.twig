@@ -10,9 +10,13 @@
 
     <div class=" pt-3 container d-flex flex-wrap">
     {% for book in finishedBooks %}
-        <div class="card-book" style="width: 22rem;">
+        <div class="card-book m-2" style="width: 22rem;">
             <div class="m-3 d-flex flex-column">
-                <h5 class="font-regular">{{ book.getBook().title }}</h5>
+                <div class="d-flex flex-nowrap justify-content-between">
+                    <h5 class="font-regular">{{ book.getBook().title }}</h5>
+                    <a href="{{ path('edit_reading', { id_book: book.getBook().id, id_readingStatus: book.id}) }}">
+                        <i class="fas fa-book fa-lg color-fourth"></i></a>
+                </div>
                 <h6 class="font-regular">{{ book.getBook().author }}</h6>
                 <div class="d- flex-row flex-wrap">
                 <span class=" p-2 badge badge-pill badge-success font-regular">Terminé</span>
@@ -23,29 +27,26 @@
     {% endfor %}
     </div>
 
-    <div class="d-flex flex-wrap justify-content-center">
-        <a class="btn-brown font-regular mt-4 px-2 mx-auto" href="{{ path('reading') }}">
+    <div class="d-flex flex-wrap ">
+        <a class="btn-brown font-regular mt-4 mr-2 px-2 mx-auto" href="{{ path('reading') }}">
             Voir mes lectures
         </a>
 
-        <a class="btn-brown font-regular mt-4  px-2 mx-auto">
+        <a class="btn-brown font-regular mt-4 mr-2 px-2 mx-auto" href="{{ path('finished_reading') }}">
             Voir mes lectures terminées
         </a>
 
-        <a class="btn-brown font-regular mt-4 px-2 mx-auto">
+        <a class="btn-brown font-regular mt-4 mr-2 px-2 mx-auto">
             Voir mes listes
         </a>
-    </div>
-    <div class="d-flex flex-wrap mt-4 mt-4  justify-content-center">
 
-        <a class="btn-brown font-regular px-2 mx-auto">
+        <a class="btn-brown font-regular mt-4 mr-2 px-2 mx-auto">
             Ma bibliothèque virtuelle
         </a>
 
-        <a class="btn-brown font-regular mt-4 px-2 mx-auto">
+        <a class="btn-brown font-regular mt-4 mr-2 px-2 mx-auto">
             Modifier mon profil
         </a>
-    </div>
 </div>
 
 {% endblock %}

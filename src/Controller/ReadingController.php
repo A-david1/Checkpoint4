@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Book;
 use App\Entity\ReadingStatus;
+use App\Form\AddReadingType;
 use App\Form\ReadingListType;
 use App\Repository\ReadingStatusRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -19,6 +20,7 @@ class ReadingController extends AbstractController
 
     public const IN_PROGRESS = 'En cours';
     public const TO_READ = 'A lire';
+    public const OVER = 'Terminé';
 
     /**
      * @Route("/reading", name="reading")
@@ -82,5 +84,39 @@ class ReadingController extends AbstractController
             $entityManager->flush();
         }
         return $this->redirectToRoute('reading');
+    }
+
+    /**
+     * @Route("/reading/add_reading", name="add_reading", methods={"GET","POST"})
+     * @IsGranted("ROLE_USER")
+     */
+    public function addReading(
+        Request $request,
+        EntityManagerInterface $manager
+    ): Response {
+        $readingStatus = new ReadingStatus();
+        $form = $this->createForm(AddReadingType::class, $readingStatus);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user = $this->getUser();
+            $readingStatus->setReadingList($user->getReadingList());
+            $manager->persist($readingStatus);
+            $manager->flush();
+            return $this->redirectToRoute('reading');
+        }
+        return $this->render('reading/addReading.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/reading/finishedBooks", name="finished_reading")
+     */
+    public function finishedReading(ReadingStatusRepository $statusRepository): Response
+    {
+        $finishedBooks = $statusRepository->findBy(['status' => self::OVER]);
+        return $this->render('reading/finishedBooks.html.twig', [
+            "finishedBooks" => $finishedBooks,
+        ]);
     }
 }
