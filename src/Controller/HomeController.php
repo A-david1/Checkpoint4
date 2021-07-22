@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
-use App\Form\SearchBarType;
+use App\Entity\SearchGlobal;
+use App\Form\SearchGlobalType;
+use App\Service\GlobalSearchProvider;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,23 +22,24 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/test", name="test")
+     * @Route("/search", name="search")
      */
-    public function test(Request $request): Response
+    public function search(Request $request, GlobalSearchProvider $searchProvider): Response
     {
-        $httpClient = HttpClient::create();
-        $form = $this->createForm(SearchBarType::class);
+        $search = new SearchGlobal();
+        $form = $this->createForm(SearchGlobalType::class, $search);
         $form->handleRequest($request);
-        $content = null;
+        $result = null;
+        $type = null;
         if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData()['textTyped'];
-            $requestApi = "http://openlibrary.org/search.json?q=" . $data . ',availability&limit=20';
-            $response = $httpClient->request('GET', $requestApi);
-            $content = $response->toArray();
+            $searchProvider->createSearch($search);
+            $result = $search->getResult();
+            $type = $search->getType();
         }
-        return $this->render('home/test.html.twig', [
+        return $this->render('home/search.html.twig', [
             'form' => $form->createView(),
-            'content' => $content,
-        ]);
+            'result' => $result,
+            'type' => $type
+    ]);
     }
 }

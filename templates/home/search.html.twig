@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recherche - Mes Livres{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <h1 class="mt-4 font-regular">Rechercher</h1>
+        <div class="container my-4 d-flex justify-content-center">
+            <div class="d-flex flex-column">
+            {% form_theme form 'bootstrap_4_layout.html.twig' %}
+                {{ form_start(form) }}
+            {{ form_row(form.query) }}
+            {{ form_row(form.type) }}
+            <span class="d-flex justify-content-center">
+
+                </span>
+        {{ form_end(form) }}
+            </div>
+        </div>
+
+        {% if result is not null %}
+            <div class="d-flex flex-wrap" >
+            {% if type == 'general' %}
+            {% for book in result.docs %}
+                <div class="card-book mr-3 mb-5" style="width: 22rem;">
+                    <div class="m-3 mr-3 d-flex flex-column">
+                        <div class="d-flex flex-nowrap justify-content-between">
+                            <h5 class="font-regular">Titre : <span>{{ book.title }}</span></h5>
+                            <a href="#">
+                                <i class="fas fa-book fa-lg color-fourth"></i></a>
+                        </div>
+                        <h6 class="font-regular">Auteur : {{ book.author_name[0] }}</h6>
+                        <h6 class="font-regular">Publication : {{ book.publish_date[0] }}</h6>
+                        <h6 class="font-regular">Editeur : {{ book.publisher[0] }}</h6>
+                    </div>
+                </div>
+            {% endfor %}
+                {% elseif type == 'author' %}
+                    {% for book in result.docs %}
+                        <div class="card-book mr-3 mb-5" style="width: 22rem;">
+                            <div class="m-3 mr-3 d-flex flex-column">
+                                <div class="d-flex flex-nowrap justify-content-between">
+                                    <h5 class="font-regular">Oeuvre la plus célèbre : <span>{{ book.top_work }}</span></h5>
+                                    <a href="#">
+                                        <i class="fas fa-book fa-lg color-fourth"></i></a>
+                                </div>
+                                <h6 class="font-regular">Auteur : {{ book.name }}</h6>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                {% elseif type == 'subject' %}
+                    {% for book in result.works %}
+                        <div class="card-book mr-3 mb-5" style="width: 22rem;">
+                            <div class="m-3 mr-3 d-flex flex-column">
+                                <div class="d-flex flex-nowrap justify-content-between">
+                                    <h5 class="font-regular">Titre : <span>{{ book.title }}</span></h5>
+                                    <a href="#">
+                                        <i class="fas fa-book fa-lg color-fourth"></i></a>
+                                </div>
+                                <h6 class="font-regular">Auteur : {{ book.authors[0].name }}</h6>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+
+{% endblock %}

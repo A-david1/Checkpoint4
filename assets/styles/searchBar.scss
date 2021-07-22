@@ -1,0 +1,16 @@
+.navbar-label {
+  width: 150px;
+  font-size: x-large;
+}
+.navbar-radio {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  .form-check-input {
+    display: none;
+    &.form-check-input[type='radio']:checked + .navbar-label {
+      font-size: x-large;
+      border-bottom: 2px solid $primary-color;
+    }
+  }
+}
