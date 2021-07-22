@@ -1,19 +1,24 @@
 body {
   background-color: $background-color;
   color: #e3e3e3;
-
+  a {
+    color: #e3e3e3;
+    :hover {
+      color: $third-color!important;
+      text-decoration: none!important;
+    }
+  }
   .font-regular, font-bold {
     font-family: 'Poppins', sans-serif;
 
     &.font-regular {
       font-weight: 400 !important;
     }
-
     &.font-bold {
       font-weight: 600 !important;
     }
   }
-  h1, h2 {
+  h1, h2, h3 {
     color: $third-color;
   }
   .btn-brown {
@@ -24,7 +29,7 @@ body {
     color: #ffffff;
     font-size: 16px;
     font-weight: bold;
-    padding: 20px 16px 20px 16px;
+    padding: 12px 20px 12px 20px;
     margin: auto;
     text-decoration: none;
     :hover {

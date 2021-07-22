@@ -20,38 +20,34 @@ class ReadingList
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity=User::class, inversedBy="readingList", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=User::class, inversedBy="startedAt", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $user;
+    private $User;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Book::class)
-     */
-    private $books;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="datetime_immutable", nullable=true)
      */
     private $startedAt;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="datetime_immutable", nullable=true)
      */
     private $addedAt;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="datetime_immutable", nullable=true)
      */
     private $finishedAt;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\OneToMany(targetEntity=ReadingStatus::class, mappedBy="readingList")
      */
-    private $status;
+    private $readingStatuses;
 
     public function __construct()
     {
-        $this->books = new ArrayCollection();
+        $this->readingStatuses = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -61,84 +57,78 @@ class ReadingList
 
     public function getUser(): ?User
     {
-        return $this->user;
+        return $this->User;
     }
 
-    public function setUser(?User $user): self
+    public function setUser(User $User): self
     {
-        $this->user = $user;
+        $this->User = $User;
 
         return $this;
     }
 
-    /**
-     * @return Collection|Book[]
-     */
-    public function getBooks(): Collection
-    {
-        return $this->books;
-    }
-
-    public function addBook(Book $book): self
-    {
-        if (!$this->books->contains($book)) {
-            $this->books[] = $book;
-        }
-
-        return $this;
-    }
-
-    public function removeBook(Book $book): self
-    {
-        $this->books->removeElement($book);
-
-        return $this;
-    }
-
-    public function getStartedAt(): ?\DateTimeInterface
+    public function getStartedAt(): ?\DateTimeImmutable
     {
         return $this->startedAt;
     }
 
-    public function setStartedAt(?\DateTimeInterface $startedAt): self
+    public function setStartedAt(?\DateTimeImmutable $startedAt): self
     {
         $this->startedAt = $startedAt;
 
         return $this;
     }
 
-    public function getAddedAt(): ?\DateTimeInterface
+    public function getAddedAt(): ?\DateTimeImmutable
     {
         return $this->addedAt;
     }
 
-    public function setAddedAt(?\DateTimeInterface $addedAt): self
+    public function setAddedAt(?\DateTimeImmutable $addedAt): self
     {
         $this->addedAt = $addedAt;
 
         return $this;
     }
 
-    public function getFinishedAt(): ?\DateTimeInterface
+    public function getFinishedAt(): ?\DateTimeImmutable
     {
         return $this->finishedAt;
     }
 
-    public function setFinishedAt(?\DateTimeInterface $finishedAt): self
+    public function setFinishedAt(?\DateTimeImmutable $finishedAt): self
     {
         $this->finishedAt = $finishedAt;
 
         return $this;
     }
 
-    public function getStatus(): ?string
+    /**
+     * @return Collection|ReadingStatus[]
+     */
+    public function getReadingStatuses(): Collection
     {
-        return $this->status;
+        return $this->readingStatuses;
     }
 
-    public function setStatus(string $status): self
+    public function addReadingStatus(ReadingStatus $readingStatus): self
     {
-        $this->status = $status;
+        if (!$this->readingStatuses->contains($readingStatus)) {
+            $this->readingStatuses[] = $readingStatus;
+            $readingStatus->setReadingList($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReadingStatus(ReadingStatus $readingStatus): self
+    {
+        if ($this->readingStatuses->removeElement($readingStatus)) {
+            // set the owning side to null (unless already changed)
+            if ($readingStatus->getReadingList() === $this) {
+                $readingStatus->setReadingList(null);
+            }
+        }
 
         return $this;
     }

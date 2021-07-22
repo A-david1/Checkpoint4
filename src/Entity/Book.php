@@ -30,15 +30,15 @@ class Book
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $edition;
+    private $editon;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $ISBN;
+    private $isbn;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="date", nullable=true)
      */
     private $releaseDate;
 
@@ -71,26 +71,26 @@ class Book
         return $this;
     }
 
-    public function getEdition(): ?string
+    public function getEditon(): ?string
     {
-        return $this->edition;
+        return $this->editon;
     }
 
-    public function setEdition(?string $edition): self
+    public function setEditon(?string $editon): self
     {
-        $this->edition = $edition;
+        $this->editon = $editon;
 
         return $this;
     }
 
-    public function getISBN(): ?string
+    public function getIsbn(): ?string
     {
-        return $this->ISBN;
+        return $this->isbn;
     }
 
-    public function setISBN(?string $ISBN): self
+    public function setIsbn(?string $isbn): self
     {
-        $this->ISBN = $ISBN;
+        $this->isbn = $isbn;
 
         return $this;
     }

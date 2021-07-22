@@ -4,12 +4,10 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
- * @UniqueEntity(fields={"mail"}, message="There is already an account with this mail")
  */
 class User implements UserInterface
 {
@@ -42,14 +40,9 @@ class User implements UserInterface
     private $name;
 
     /**
-     * @ORM\OneToOne(targetEntity=ReadingList::class, mappedBy="user", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=ReadingList::class, mappedBy="User", cascade={"persist", "remove"})
      */
     private $readingList;
-
-    /**
-     * @ORM\OneToMany(targetEntity=PersonalList::class, mappedBy="user")
-     */
-    private $personalLists;
 
     public function getId(): ?int
     {
@@ -149,49 +142,14 @@ class User implements UserInterface
         return $this->readingList;
     }
 
-    public function setReadingList(?ReadingList $readingList): self
+    public function setReadingList(ReadingList $readingList): self
     {
-        // unset the owning side of the relation if necessary
-        if ($readingList === null && $this->readingList !== null) {
-            $this->readingList->setUser(null);
-        }
-
         // set the owning side of the relation if necessary
-        if ($readingList !== null && $readingList->getUser() !== $this) {
+        if ($readingList->getUser() !== $this) {
             $readingList->setUser($this);
         }
 
-        $this->readingList = $readingList;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|PersonalList[]
-     */
-    public function getPersonalLists(): Collection
-    {
-        return $this->personalLists;
-    }
-
-    public function addPersonalList(PersonalList $personalList): self
-    {
-        if (!$this->personalLists->contains($personalList)) {
-            $this->personalLists[] = $personalList;
-            $personalList->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removePersonalList(PersonalList $personalList): self
-    {
-        if ($this->personalLists->removeElement($personalList)) {
-            // set the owning side to null (unless already changed)
-            if ($personalList->getUser() === $this) {
-                $personalList->setUser(null);
-            }
-        }
+        $this->startedAt = $readingList;
 
         return $this;
     }
