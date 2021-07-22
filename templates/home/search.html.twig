@@ -2,6 +2,10 @@
 
 {% block title %}Recherche - Mes Livres{% endblock %}
 
+{% block javascripts %}
+      {{ parent() }}
+      {{ encore_entry_script_tags('addFromSearchBar') }}
+{% endblock %}
 {% block body %}
 
     <div class="container">
@@ -27,7 +31,7 @@
                     <div class="m-3 mr-3 d-flex flex-column">
                         <div class="d-flex flex-nowrap justify-content-between">
                             <h5 class="font-regular">Titre : <span>{{ book.title }}</span></h5>
-                            <a href="#">
+                            <a class='add-books'data-path="{{ path('add_from_search') }}" data-author="{{ book.author_name[0] }}" data-title="{{ book.title }}">
                                 <i class="fas fa-book fa-lg color-fourth"></i></a>
                         </div>
                         <h6 class="font-regular">Auteur : {{ book.author_name[0] }}</h6>

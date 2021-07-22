@@ -6,11 +6,11 @@
 
     <div class="container pt-4">
 
-        <h2 class="mt-4 pt-3 font-regular">Lecture du Moment</h2>
+        <h2 class="mt-4 pt-3 font-regular">Lectures terminées</h2>
 
-        <div class=" pt-3 container d-flex flex-wrap">
+        <div class="pt-3 container d-flex flex-wrap">
             {% for book in finishedBooks %}
-                <div class="card-book mb-3" style="width: 22rem;">
+                <div class="card-book mr-2 mb-3" style="width: 22rem;">
                     <div class="m-3 d-flex flex-column">
                         <div class="d-flex flex-nowrap justify-content-between">
                             <h5 class="font-regular">{{ book.getBook().title }}</h5>
