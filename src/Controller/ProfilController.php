@@ -3,7 +3,8 @@
 namespace App\Controller;
 
 
-use App\Repository\ReadingListRepository;
+use App\Entity\ReadingStatus;
+use App\Repository\ReadingStatusRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,12 +18,18 @@ class ProfilController extends AbstractController
      * @Route("/profil", name="profil")
      * @IsGranted("ROLE_USER")
      */
-    public function profil( $readingListRepository): Response
+    public function profil(ReadingStatusRepository $statusRepository): Response
     {
         $user = $this->getUser();
-        $lastBooksRead = $readingListRepository->findBy(['status' => self::OVER]);
+
+        $finishedBooks = $statusRepository->findBy(
+            ['readingList' => $user->getReadingList(), 'status' => self::OVER ],
+            ['id' => 'DESC'],
+            2
+        );
+
         return $this->render('profil/profil.html.twig', [
-            'lastBooks' => $lastBooksRead,
+                'finishedBooks' => $finishedBooks,
         ]);
     }
 }

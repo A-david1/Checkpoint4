@@ -12,11 +12,33 @@ class ReadingStatusFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-       $readingStatus = new ReadingStatus();
-       $readingStatus->setStatus('Terminé');
-       $readingStatus->setReadingList($this->getReference('readingList1'));
-       $readingStatus->setBook($this->getReference('book1'));
-       $manager->persist($readingStatus);
+       $readingStatus1 = new ReadingStatus();
+       $readingStatus1->setStatus('Terminé');
+       $readingStatus1->setReadingList($this->getReference('readingList1'));
+       $readingStatus1->setBook($this->getReference('book1'));
+       $readingStatus1->setAddedAt(new \DateTimeImmutable());
+       $readingStatus1->setFinishedAt(new \DateTimeImmutable());
+       $readingStatus1->setStartedAt(new \DateTimeImmutable());
+       $manager->persist($readingStatus1);
+
+        $readingStatus2 = new ReadingStatus();
+        $readingStatus2->setStatus('En cours');
+        $readingStatus2->setReadingList($this->getReference('readingList1'));
+        $readingStatus2->setBook($this->getReference('book2'));
+        $readingStatus2->setAddedAt(new \DateTimeImmutable());
+        $readingStatus2->setFinishedAt(new \DateTimeImmutable());
+        $readingStatus2->setStartedAt(new \DateTimeImmutable());
+        $manager->persist($readingStatus2);
+
+        $readingStatus3 = new ReadingStatus();
+        $readingStatus3->setStatus('A lire');
+        $readingStatus3->setReadingList($this->getReference('readingList1'));
+        $readingStatus3->setBook($this->getReference('book3'));
+        $readingStatus3->setAddedAt(new \DateTimeImmutable());
+        $readingStatus3->setFinishedAt(new \DateTimeImmutable());
+        $readingStatus3->setStartedAt(new \DateTimeImmutable());
+        $manager->persist($readingStatus3);
+
 
         $manager->flush();
     }

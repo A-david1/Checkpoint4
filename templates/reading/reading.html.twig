@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes Lectures - Bateau Livre{% endblock %}
+
+{% block body %}
+<div class="container pt-4">
+    <h1 class="mt-4 mb-3 font-regular">Mes lectures</h1>
+
+    <h2 class="mt-3 font-regular">Lecture du moment</h2>
+    <i class="fas fa-book"></i>
+
+    <div class=" pt-3 container d-flex flex-wrap">
+    {% for book in readingBooks %}
+        <div class="card-book" style="width: 22rem;">
+            <div class="m-3 d-flex flex-column">
+                <h5 class="font-regular">{{ book.getBook().title }}</h5>
+                <h6 class="font-regular">{{ book.getBook().author }}</h6>
+                <div class="d- flex-row flex-wrap">
+                    <span class=" p-2 mb-2 badge badge-pill badge-success font-regular">En cours</span>
+                    <span class="ml-2 font-regular">Commencé le {{ book.startedAt|date('d/m/Y') }}</span>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+
+        <h2 class="mt-3 font-regular">Futures Lectures</h2>
+        <div class=" pt-3 container d-flex flex-wrap">
+        {% for book in futureBooks %}
+            <div class="card-book" style="width: 22rem;">
+                <div class="m-3 d-flex flex-column">
+                    <h5 class="font-regular">{{ book.getBook().title }}</h5>
+                    <h6 class="font-regular">{{ book.getBook().author }}</h6>
+                    <div class="d- flex-row flex-wrap">
+                        <span class=" p-2 badge badge-pill badge-secondary font-regular">A lire</span>
+                        <span class=" mb-2 ml-2 font-regular">Ajouté le {{ book.addedAt|date('d/m/Y') }}</span>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+
+</div>
+
+
+{% endblock %}

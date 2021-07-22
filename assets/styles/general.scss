@@ -18,8 +18,12 @@ body {
       font-weight: 600 !important;
     }
   }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif;
+  }
   h1, h2, h3 {
     color: $third-color;
+    font-family: 'Poppins', sans-serif;
   }
   .btn-brown {
     background-color: $fourth-color;
